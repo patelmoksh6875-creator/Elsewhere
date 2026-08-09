@@ -22,18 +22,21 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
 
   useEffect(() => {
     setCurrent(0);
+    setDuration(0);
     setIsPlaying(false);
   }, [index]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio || !hasFile) return;
+    // Don't touch isPlaying here — the audio element's onPlay/onPause
+    // events are the single source of truth, so state always matches
+    // what's actually happening (autoplay-block rejections included).
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play().catch(() => setIsPlaying(false));
+      audio.play().catch(() => {});
     }
-    setIsPlaying(!isPlaying);
   };
 
   const prev = () => setIndex((i) => (i - 1 + tracks.length) % tracks.length);
@@ -59,17 +62,45 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
       <audio
         ref={audioRef}
         src={track?.file || undefined}
-        onTimeUpdate={(e) => setCurrent(e.currentTarget.currentTime)}
+        onTimeUpdate={(e) => {
+          // Also sync duration here, not just in onLoadedMetadata: when a
+          // file loads fast (e.g. from cache) that event can fire before
+          // React finishes attaching the listener and gets missed entirely,
+          // leaving duration stuck at 0. timeupdate fires repeatedly during
+          // playback, so it's a reliable fallback.
+          setCurrent(e.currentTarget.currentTime);
+          if (Number.isFinite(e.currentTarget.duration)) {
+            setDuration(e.currentTarget.duration);
+          }
+        }}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         onEnded={next}
       />
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={track?.albumArt}
-        alt=""
-        className="h-16 w-16 flex-shrink-0 rounded-xl object-cover"
-      />
+      <div className="relative h-16 w-16 flex-shrink-0">
+        {/* Vinyl record: spins while playing, holds its angle when paused
+            (animation-play-state, not conditional rendering, so it doesn't
+            snap back to 0deg every pause). */}
+        <div
+          className={`h-16 w-16 rounded-full shadow-lg ${isPlaying ? "vinyl-spin" : ""}`}
+          style={{
+            background:
+              "repeating-radial-gradient(circle at center, #2a2a2a 0px, #2a2a2a 1px, #0c0c0c 1px, #0c0c0c 3px)",
+            animationPlayState: isPlaying ? "running" : "paused",
+          }}
+        >
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_30%,rgba(255,255,255,0.18),transparent_45%)]" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={track?.albumArt}
+            alt=""
+            className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full object-cover ring-1 ring-black/50"
+          />
+          <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black" />
+        </div>
+      </div>
 
       <div className="flex w-44 flex-col leading-tight">
         <span className="truncate text-base font-semibold">{track?.title}</span>

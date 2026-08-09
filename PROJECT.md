@@ -52,15 +52,39 @@ be added later without a rewrite. Center title is in Hindi/Devanagari (`के�
 - 2026-08-09 — Title wording changed again to "केरल के खेत" ("Fields of Kerala") per user request,
   after briefly trying the English phrase "Kerala Fields" in the same font. Same Yatra One font
   kept throughout — only the text content changed.
+- 2026-08-09 — Phase 4 done: 10 real MP3s added to `public/audio/` (user's own downloads, sourced
+  from `~/Documents/kerala-radio/Songs/`), `src/lib/scenes.ts` populated with matching track
+  metadata. Files had no ID3 tags, so title/artist were derived from filenames — a few tracks
+  (Drizzle, Nilaya, Sudhar, Gravity, Krishna's Dance, I Wanted to Leave) have no discoverable
+  artist and are labeled "Unknown Artist"; correct these in `scenes.ts` if the real artist is known.
+  No per-track album art was supplied, so all tracks reuse `kerala-scene.png` as the vinyl label —
+  swap `albumArt` per track later if real covers become available.
+- 2026-08-09 — Replaced the square album-art `<img>` in the player island with a spinning vinyl
+  record (CSS `repeating-radial-gradient` for grooves + a small circular label crop of the album
+  art + a spindle-hole dot), per user request. Spin driven by a CSS `vinyl-spin` keyframe class
+  toggled with `animation-play-state` (running/paused) rather than adding/removing the animation,
+  so pausing holds the current rotation angle instead of snapping back to 0deg.
+- 2026-08-09 — Fixed a real bug while testing playback: `onLoadedMetadata` can fire before React
+  finishes attaching its listener when a file loads fast (e.g. from browser cache), silently
+  leaving `duration` stuck at 0 forever even though audio plays fine. Fixed by also syncing
+  `duration` inside the `onTimeUpdate` handler (fires repeatedly during playback, so it's a
+  reliable fallback) rather than relying on `onLoadedMetadata` alone.
+- 2026-08-09 — `isPlaying` state is now driven solely by the `<audio>` element's native
+  `onPlay`/`onPause` events instead of being optimistically toggled in the click handler —
+  keeps the UI (including vinyl spin) truthful if `audio.play()` is rejected (e.g. autoplay
+  policy) instead of showing "playing" when it isn't.
 
 ## Current state
-- Phases 1–5 done: scaffolded Next.js app, built the Kerala scene (background, top bar with a
-  real Kerala-time clock + real presence counter, Malayalam title, glassmorphic player island),
-  wired the player to a real `<audio>` element (play/pause/prev/next/scrub), and polished sizing/
-  position per feedback. Verified visually in browser preview.
+- Phases 1–5 done, phase 4 (your music) done: scaffolded Next.js app, built the Kerala scene
+  (background, top bar with a real Kerala-time clock + real presence counter, Hindi title,
+  glassmorphic player island with a spinning vinyl record), wired the player to a real `<audio>`
+  element (play/pause/prev/next/scrub, duration bug fixed), and loaded in the user's 10 real songs.
+  Verified end-to-end in browser preview: playback, progress, duration, and vinyl spin all confirmed
+  working.
 - Presence counter is real but needs an Upstash Redis database + env vars set on Vercel to count
   across visitors in production (see README). Without it, every deploy still shows "1" safely.
-- Phase 4 (your music) not started — `public/audio/` is empty, `src/lib/scenes.ts` has one
-  placeholder track with no `file` path (play button is disabled until a real file is added).
+- Some tracks are missing real artist credit (see decisions log) and none have dedicated album
+  art yet — cosmetic gaps only, playback works for all 10.
 - Background image lives at `public/scenes/kerala-scene.png` (PNG, not yet converted to WebP).
-- Pushed to GitHub (`main`), not yet deployed to Vercel (user will deploy themselves).
+- Pushed to GitHub (`main`) through the title-wording commit; the song-library + vinyl-spin work
+  in this session is queued to commit next. Not yet deployed to Vercel (user will deploy themselves).
