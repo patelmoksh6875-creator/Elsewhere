@@ -90,7 +90,7 @@ export function TopBar({ timezone }: { timezone: string }) {
           className="mt-1.5 flex items-center gap-2 text-[11px] font-semibold tracking-widest text-white/70"
           style={textShadow}
         >
-          <span>KL TIME</span>
+          <span>Kerela Time</span>
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]" />
