@@ -72,26 +72,31 @@ export function TopBar({ timezone }: { timezone: string }) {
   const textShadow = { textShadow: "0 1px 6px rgba(0,0,0,0.5)" };
 
   return (
-    <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between px-6 py-6 text-white">
+    <div className="absolute inset-x-0 top-0 z-10 flex items-start px-6 py-6 text-white">
       <div>
-        <div
-          className="font-clock text-4xl font-bold tabular-nums leading-none sm:text-5xl"
-          style={textShadow}
-        >
-          {time ?? " "}
+        <div className="flex items-center gap-2">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/60" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+          </span>
+          <span
+            className="font-clock text-4xl font-bold tabular-nums leading-none sm:text-5xl"
+            style={textShadow}
+          >
+            {time ?? " "}
+          </span>
         </div>
         <div
-          className="mt-1.5 flex items-center gap-1 text-[11px] font-semibold tracking-widest text-white/70"
+          className="mt-1.5 flex items-center gap-2 text-[11px] font-semibold tracking-widest text-white/70"
           style={textShadow}
         >
-          <span aria-hidden="true">🌴</span>
           <span>KL TIME</span>
+          <span aria-hidden="true">·</span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block h-2 w-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]" />
+            {presence} online
+          </span>
         </div>
-      </div>
-
-      <div className="flex items-center gap-2 text-sm font-medium" style={textShadow}>
-        <span className="inline-block h-2 w-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]" />
-        {presence} online
       </div>
     </div>
   );
