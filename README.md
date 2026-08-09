@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kerala Radio
 
-## Getting Started
+An ambient Kerala backwaters scene — live "local" clock, glassmorphic music player, your own songs.
 
-First, run the development server:
+## Adding your own songs
+
+1. Drop the MP3 and its album art into `public/audio/`.
+2. Add an entry to the `tracks` array in [`src/lib/scenes.ts`](src/lib/scenes.ts):
+
+```ts
+{
+  id: "unique-id",
+  title: "Song Title",
+  artist: "Artist Name",
+  albumArt: "/audio/your-cover.jpg",
+  file: "/audio/your-song.mp3",
+},
+```
+
+The first track in the array plays first; prev/next cycles through the list.
+
+## Dev
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Push to `main` and import the repo on [Vercel](https://vercel.com/new) — no config needed, it's a
+standard Next.js app.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [PROJECT.md](PROJECT.md) for scope, decisions, and current state.
