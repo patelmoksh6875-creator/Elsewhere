@@ -49,6 +49,9 @@ be added later without a rewrite. Center title is in Hindi/Devanagari (`के�
   subset) to Yatra One (bold decorative Devanagari display font, closer to the original reference
   screenshot's look). `--font-malayalam` CSS var/token renamed to `--font-title` since it's no
   longer script-specific.
+- 2026-08-09 — Title wording changed again to "केरल के खेत" ("Fields of Kerala") per user request,
+  after briefly trying the English phrase "Kerala Fields" in the same font. Same Yatra One font
+  kept throughout — only the text content changed.
 
 ## Current state
 - Phases 1–5 done: scaffolded Next.js app, built the Kerala scene (background, top bar with a

@@ -6,7 +6,7 @@ export const keralaScene: Scene = {
   id: "kerala-backwaters",
   name: "Kerala Backwaters",
   backgroundImage: "/scenes/kerala-scene.png",
-  titleText: "केरल",
+  titleText: "केरल के खेत",
   titleFontClass: "font-title",
   timezone: "Asia/Kolkata",
   spotifyUrl: "https://open.spotify.com",
