@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Baloo_Chettan_2, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Yatra_One, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +12,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const baloo = Baloo_Chettan_2({
-  variable: "--font-malayalam",
-  subsets: ["malayalam", "latin"],
-  weight: ["600", "700", "800"],
+const titleFont = Yatra_One({
+  variable: "--font-title",
+  subsets: ["devanagari", "latin"],
+  weight: "400",
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

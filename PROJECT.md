@@ -3,7 +3,7 @@
 ## Done means
 A deployable Next.js site showing a Kerala ambient scene (background art, live Kerala-time clock,
 glassmorphic music player) that plays the user's own uploaded MP3s, structured so more scenes can
-be added later without a rewrite.
+be added later without a rewrite. Center title is in Hindi/Devanagari (`केरल`).
 
 ## Anti-goals (v1)
 - No multi-scene switcher UI (data structure supports it, but only one scene ships)
@@ -37,6 +37,18 @@ be added later without a rewrite.
   small "🌴 KL TIME" label underneath, clarifying the clock is Kerala local time, not the viewer's.
 - 2026-08-09 — Player island enlarged and shifted up (bottom-20 vs bottom-8, bigger padding/art/
   controls) per user request — original sizing read as too small against the reference.
+- 2026-08-09 — Online counter moved from top-center to directly under the clock ("KL TIME · N
+  online"), a live-pulsing dot added beside the time, and the palm emoji dropped from the KL TIME
+  label — all per user feedback on the top bar layout.
+- 2026-08-09 — Considered switching to a Spotify playlist as the audio source instead of local
+  MP3s; user backed out and confirmed sticking with local downloads. No code changes made — noted
+  here so a future session doesn't re-litigate it from scratch.
+- 2026-08-09 — Center title switched from Malayalam (`കേരളം`) to Hindi/Devanagari (`केरल`) per
+  explicit user confirmation, reversing the earlier "not Hindi — Kerala's regional language"
+  decision from the original handoff spec. Font switched from Baloo Chettan 2 (rounded, Malayalam
+  subset) to Yatra One (bold decorative Devanagari display font, closer to the original reference
+  screenshot's look). `--font-malayalam` CSS var/token renamed to `--font-title` since it's no
+  longer script-specific.
 
 ## Current state
 - Phases 1–5 done: scaffolded Next.js app, built the Kerala scene (background, top bar with a

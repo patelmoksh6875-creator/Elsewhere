@@ -10,7 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-malayalam: var(--font-malayalam);
+  --font-title: var(--font-title);
   --font-clock: var(--font-clock);
 
   /* Glass "island" token scale — reuse these, don't invent new blur/opacity values inline */
