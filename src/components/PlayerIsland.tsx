@@ -17,23 +17,37 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  // Mirrors `isPlaying` without being a dependency of the track-change
+  // effect below — lets that effect read "were we playing" without
+  // re-running every time isPlaying itself flips.
+  const isPlayingRef = useRef(isPlaying);
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+
   const track = tracks[index];
   const hasFile = Boolean(track?.file);
 
+  // Track changed (skip, prev, or auto-advance on end) — reset the
+  // scrubber, and if we were mid-playback, keep going into the new track
+  // instead of leaving it paused. Intentionally does NOT reset isPlaying:
+  // that's the whole point of "continuous flow" — only the user's own
+  // pause action should ever stop playback.
   useEffect(() => {
     setCurrent(0);
     setDuration(0);
-    setIsPlaying(false);
-  }, [index]);
+    const audio = audioRef.current;
+    if (audio && hasFile && isPlayingRef.current) {
+      audio.play().catch(() => setIsPlaying(false));
+    }
+  }, [track?.file, hasFile]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio || !hasFile) return;
-    // Don't touch isPlaying here — the audio element's onPlay/onPause
-    // events are the single source of truth, so state always matches
-    // what's actually happening (autoplay-block rejections included).
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
     } else {
       audio.play().catch(() => {});
     }
@@ -74,8 +88,12 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
           }
         }}
         onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+        // No onPause handler: the browser also fires 'pause' when a track
+        // ends naturally (and, in some browsers, when src changes), which
+        // would otherwise clear isPlaying and break continuous flow.
+        // Pausing is only ever set explicitly, from the user's own click
+        // in togglePlay.
         onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
         onEnded={next}
       />
 

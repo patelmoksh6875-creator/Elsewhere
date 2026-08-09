@@ -73,6 +73,16 @@ be added later without a rewrite. Center title is in Hindi/Devanagari (`के�
   `onPlay`/`onPause` events instead of being optimistically toggled in the click handler —
   keeps the UI (including vinyl spin) truthful if `audio.play()` is rejected (e.g. autoplay
   policy) instead of showing "playing" when it isn't.
+- 2026-08-09 — User reported the above onPause wiring actually broke continuous playback:
+  skipping tracks or reaching the end of a track paused playback instead of flowing into the
+  next one. Root cause: the browser fires a native 'pause' event both when a track ends
+  naturally and (in some browsers) when `src` changes — our onPause handler was treating both
+  as if the user had clicked pause. Fixed by removing onPause entirely (pausing is now only ever
+  set explicitly, inside togglePlay's own click handler) and no longer resetting `isPlaying` on
+  track change. A new effect keyed on `track.file` calls `audio.play()` on the newly-loaded
+  track whenever playback was in progress (tracked via an `isPlayingRef` mirror, read without
+  making the effect depend on `isPlaying` itself) — so skip/prev/auto-advance-on-end all continue
+  playing uninterrupted, and only an explicit pause click actually stops it.
 
 ## Current state
 - Phases 1–5 done, phase 4 (your music) done: scaffolded Next.js app, built the Kerala scene
