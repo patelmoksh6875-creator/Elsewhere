@@ -48,7 +48,7 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
 
   return (
     <div
-      className="absolute bottom-8 left-1/2 z-10 flex w-fit -translate-x-1/2 items-center gap-4 rounded-full border px-5 py-3 text-white"
+      className="absolute bottom-20 left-1/2 z-10 flex w-fit -translate-x-1/2 items-center gap-6 rounded-full border px-8 py-5 text-white"
       style={{
         background: "var(--glass-bg)",
         backdropFilter: "blur(var(--glass-blur))",
@@ -68,21 +68,21 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
       <img
         src={track?.albumArt}
         alt=""
-        className="h-11 w-11 flex-shrink-0 rounded-lg object-cover"
+        className="h-16 w-16 flex-shrink-0 rounded-xl object-cover"
       />
 
-      <div className="flex w-36 flex-col leading-tight">
-        <span className="truncate text-sm font-semibold">{track?.title}</span>
-        <span className="truncate text-xs text-white/60">{track?.artist}</span>
+      <div className="flex w-44 flex-col leading-tight">
+        <span className="truncate text-base font-semibold">{track?.title}</span>
+        <span className="truncate text-sm text-white/60">{track?.artist}</span>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <button
           onClick={prev}
           aria-label="Previous track"
           className="opacity-80 transition-opacity hover:opacity-100"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+          <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
             <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
           </svg>
         </button>
@@ -90,14 +90,14 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
           onClick={togglePlay}
           disabled={!hasFile}
           aria-label={isPlaying ? "Pause" : "Play"}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black disabled:opacity-40"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black disabled:opacity-40"
         >
           {isPlaying ? (
-            <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
               <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-[1px] fill-current">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 translate-x-[1px] fill-current">
               <path d="M8 5v14l11-7z" />
             </svg>
           )}
@@ -107,13 +107,13 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
           aria-label="Next track"
           className="opacity-80 transition-opacity hover:opacity-100"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+          <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
             <path d="M16 6h2v12h-2zM6 6v12l8.5-6z" />
           </svg>
         </button>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <input
           type="range"
           min={0}
@@ -122,9 +122,9 @@ export function PlayerIsland({ tracks }: { tracks: Track[] }) {
           value={current}
           onChange={onScrub}
           disabled={!hasFile}
-          className="h-1 w-28 cursor-pointer accent-white disabled:cursor-not-allowed"
+          className="h-1 w-36 cursor-pointer accent-white disabled:cursor-not-allowed"
         />
-        <span className="w-20 text-right text-xs tabular-nums text-white/70">
+        <span className="w-24 text-right text-sm tabular-nums text-white/70">
           {formatTime(current)} / {formatTime(duration)}
         </span>
       </div>

@@ -7,14 +7,17 @@ be added later without a rewrite.
 
 ## Anti-goals (v1)
 - No multi-scene switcher UI (data structure supports it, but only one scene ships)
-- No real presence counter (decorative/lightly randomized number)
-- No backend, auth, or database — fully static, client-side audio playback
+- No auth or user accounts
 - No perfected mobile layout (desktop-first; must not be broken on mobile, but not polished)
 
 ## Stack
-- **Next.js 15 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
+- **Next.js 16 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
 - **Tailwind CSS** — utility classes for the token system (spacing/radius/blur scale)
-- **No backend** — audio files served statically from `/public/audio`, playlist hardcoded in `src/lib/scenes.ts`
+- **Audio**: served statically from `/public/audio`, playlist hardcoded in `src/lib/scenes.ts`
+- **Presence**: one serverless API route (`src/app/api/presence/route.ts`) backed by Upstash Redis
+  (REST-based, works on Vercel serverless — no persistent server needed). Falls back to reporting
+  "1" if `KV_REST_API_URL` / `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` / `_TOKEN`) aren't set,
+  so local dev and a not-yet-configured deploy never break.
 - **Vercel** — user deploys manually, not part of this repo's automation
 
 ## Decisions log
@@ -22,14 +25,27 @@ be added later without a rewrite.
 - 2026-08-09 — Clock shows fixed `Asia/Kolkata` time regardless of viewer location (per user confirmation). Reason: ambient/lofi-radio scenes have their own "local" time, matches reference vibe.
 - 2026-08-09 — Center title text is `കേരളം` ("Kerala" in Malayalam, per user confirmation).
 - 2026-08-09 — Background image kept as PNG in `public/scenes/kerala-scene.png` for now; WebP conversion deferred to polish phase (not blocking).
+- 2026-08-09 — Real presence counter added (was decorative in v1 draft, promoted to a real feature
+  per user request). Reason: user wants it to reflect actual concurrent visitors, not a fake number.
+  Implemented with Upstash Redis via a serverless API route rather than WebSockets, since Vercel
+  serverless can't hold long-lived socket connections — a REST-based heartbeat (10s interval,
+  25s staleness window) fits the platform and needs no separate server process.
+- 2026-08-09 — Removed Spotify/YT Music links from the top bar per user request (dead placeholder
+  links weren't adding value). `spotifyUrl`/`ytMusicUrl` stay in the `Scene` type for future reuse
+  but are no longer rendered.
+- 2026-08-09 — Clock enlarged and switched to Space Grotesk (bolder/blockier than Geist) with a
+  small "🌴 KL TIME" label underneath, clarifying the clock is Kerala local time, not the viewer's.
+- 2026-08-09 — Player island enlarged and shifted up (bottom-20 vs bottom-8, bigger padding/art/
+  controls) per user request — original sizing read as too small against the reference.
 
 ## Current state
-- Phases 1–3 done: scaffolded Next.js app, built the Kerala scene (background, top bar with
-  Kerala-time clock + fake presence counter + Spotify/YT links, Malayalam title, glassmorphic
-  player island), and wired the player to a real `<audio>` element (play/pause/prev/next/scrub).
-  Verified visually in browser preview against the reference layout — matches closely.
+- Phases 1–5 done: scaffolded Next.js app, built the Kerala scene (background, top bar with a
+  real Kerala-time clock + real presence counter, Malayalam title, glassmorphic player island),
+  wired the player to a real `<audio>` element (play/pause/prev/next/scrub), and polished sizing/
+  position per feedback. Verified visually in browser preview.
+- Presence counter is real but needs an Upstash Redis database + env vars set on Vercel to count
+  across visitors in production (see README). Without it, every deploy still shows "1" safely.
 - Phase 4 (your music) not started — `public/audio/` is empty, `src/lib/scenes.ts` has one
   placeholder track with no `file` path (play button is disabled until a real file is added).
-- Phase 5 (polish/deploy handoff) not started.
 - Background image lives at `public/scenes/kerala-scene.png` (PNG, not yet converted to WebP).
-- Not yet pushed to GitHub.
+- Pushed to GitHub (`main`), not yet deployed to Vercel (user will deploy themselves).

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Baloo_Chettan_2 } from "next/font/google";
+import { Geist, Geist_Mono, Baloo_Chettan_2, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +18,12 @@ const baloo = Baloo_Chettan_2({
   weight: ["600", "700", "800"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-clock",
+  subsets: ["latin"],
+  weight: ["500", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Kerala Radio",
   description: "An ambient Kerala backwaters scene with a live radio player.",
@@ -27,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

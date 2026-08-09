@@ -11,6 +11,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-malayalam: var(--font-malayalam);
+  --font-clock: var(--font-clock);
 
   /* Glass "island" token scale — reuse these, don't invent new blur/opacity values inline */
   --glass-bg: rgba(20, 12, 8, 0.55);

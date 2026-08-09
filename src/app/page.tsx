@@ -18,11 +18,7 @@ export default function Home() {
       />
       <div className="absolute inset-0 bg-black/10" />
 
-      <TopBar
-        timezone={scene.timezone}
-        spotifyUrl={scene.spotifyUrl}
-        ytMusicUrl={scene.ytMusicUrl}
-      />
+      <TopBar timezone={scene.timezone} />
       <SceneTitle text={scene.titleText} fontClass={scene.titleFontClass} />
       <PlayerIsland tracks={scene.tracks} />
     </main>

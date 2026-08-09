@@ -19,6 +19,21 @@ An ambient Kerala backwaters scene — live "local" clock, glassmorphic music pl
 
 The first track in the array plays first; prev/next cycles through the list.
 
+## Real presence counter (optional but recommended)
+
+The "N online" counter is real — it counts distinct browser tabs that have pinged the app in the
+last ~25 seconds. It needs a tiny free Redis database to store that in:
+
+1. Create a free database at [upstash.com](https://upstash.com) (or add the Upstash integration
+   from your Vercel project's Storage tab — it sets the env vars for you automatically).
+2. Grab the REST URL and token and add them as env vars — locally in `.env.local`, and on Vercel
+   under Project Settings → Environment Variables:
+   ```
+   KV_REST_API_URL=...
+   KV_REST_API_TOKEN=...
+   ```
+3. Redeploy. Without these set, the counter safely shows "1" instead of breaking.
+
 ## Dev
 
 ```bash
