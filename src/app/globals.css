@@ -12,7 +12,6 @@
   --font-mono: var(--font-geist-mono);
   --font-title: var(--font-title);
   --font-clock: var(--font-clock);
-  --font-title-blocky: var(--font-title-blocky);
 
   /* Glass "island" token scale — reuse these, don't invent new blur/opacity values inline */
   --glass-bg: rgba(20, 12, 8, 0.55);

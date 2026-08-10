@@ -277,28 +277,6 @@ export const summerScene: Scene = {
   ],
 };
 
-export const grindScene: Scene = {
-  id: "the-grind",
-  name: "The Grind",
-  label: "The Grind",
-  backgroundImage: "/scenes/grind-scene.png",
-  titleText: "The Grind",
-  titleFontClass: "font-title-blocky",
-  timezone: null,
-  timeLabel: "Local Time",
-  spotifyUrl: "https://open.spotify.com",
-  ytMusicUrl: "https://music.youtube.com",
-  tracks: [
-    {
-      id: "placeholder",
-      title: "Add your first song",
-      artist: "Drop an MP3 in /public/audio",
-      albumArt: "/scenes/grind-scene.png",
-      file: "",
-    },
-  ],
-};
-
 // Add new presets here — the switcher UI and scene-transition logic are
 // both generic over this array, so a new entry is the only change needed.
-export const scenes: Scene[] = [keralaScene, summerScene, grindScene];
+export const scenes: Scene[] = [keralaScene, summerScene];
