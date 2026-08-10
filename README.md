@@ -1,6 +1,7 @@
-# Kerala Radio
+# Elsewhere
 
-An ambient Kerala backwaters scene — live "local" clock, glassmorphic music player, your own songs.
+A multi-scene ambient radio — Kerala backwaters, summer coast, more scenes addable as data entries.
+Live "local" clock per scene, glassmorphic music player, your own songs.
 
 ## Adding your own songs
 

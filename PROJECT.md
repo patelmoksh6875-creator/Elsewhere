@@ -1,4 +1,4 @@
-# Kerala Radio
+# Elsewhere
 
 ## Done means
 A deployable Next.js multi-scene ambient site (Kerala + Summer, more addable as data entries) with
@@ -140,3 +140,9 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   full playlist, not just the 2-3 tracks it was tested with originally).
 - Pushed to GitHub (`main`) through the multi-scene-switcher commit; Summer's song library is
   queued to commit next. Not yet deployed to Vercel (user will deploy themselves).
+- 2026-08-10 — Project renamed from "Kerala Radio" to "Elsewhere" (site now covers multiple scenes
+  beyond just Kerala, so the old name undersold it). Renamed the GitHub repo itself via `gh repo
+  rename` (URL is now `github.com/patelmoksh6875-creator/Elsewhere`, local `origin` remote updated
+  to match) and updated the site's `<title>`/metadata, `package.json` name, README, and this file's
+  heading. Local folder path (`kerala-radio/`) and internal scene id `kerala-backwaters` were left
+  alone — purely cosmetic/user-facing naming changed, nothing structural.

@@ -25,8 +25,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Kerala Radio",
-  description: "An ambient Kerala backwaters scene with a live radio player.",
+  title: "Elsewhere",
+  description: "An ambient multi-scene radio — Kerala backwaters, summer coast, and more.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
