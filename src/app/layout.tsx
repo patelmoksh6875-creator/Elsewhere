@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Yatra_One, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Yatra_One, Space_Grotesk, Archivo_Black } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,6 +24,12 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "700"],
 });
 
+const archivoBlack = Archivo_Black({
+  variable: "--font-title-blocky",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Elsewhere",
   description: "An ambient multi-scene radio — Kerala backwaters, summer coast, and more.",
@@ -33,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${spaceGrotesk.variable} ${archivoBlack.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

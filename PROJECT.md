@@ -1,16 +1,17 @@
 # Elsewhere
 
 ## Done means
-A deployable Next.js multi-scene ambient site (Kerala + Summer, more addable as data entries) with
-a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-timezone clock
-crossfading in, and a glassmorphic music player that plays the user's own uploaded MP3s per scene.
+A deployable Next.js multi-scene ambient site (Kerala, Summer, The Grind — more addable as data
+entries) with a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-
+timezone clock crossfading in, and a glassmorphic music player that plays the user's own uploaded
+MP3s per scene.
 
 ## Anti-goals (v1)
 - No auth or user accounts
 - No perfected mobile layout (desktop-first; must not be broken on mobile, but not polished)
-- No more than 2 scenes shipped in this pass (Kerala, Summer) — the switcher and data model are
-  generic over N scenes, but additional presets (Startup, Nostalgic, etc.) are out of scope until
-  their art/songs are supplied
+- Additional presets beyond what's already shipped (Kerala, Summer, The Grind) are out of scope
+  until their art/songs are supplied — the switcher and data model are generic over N scenes, so
+  adding one is a `scenes.ts` entry away, just not scaffolded speculatively
 
 ## Stack
 - **Next.js 16 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
@@ -121,10 +122,11 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   across visitors in production (see README). Without it, every deploy still shows "1" safely.
 - Some tracks are missing real artist credit (see decisions log) and none have dedicated album
   art yet — cosmetic gaps only, playback works for all 10.
-- Background images live at `public/scenes/kerala-scene.png` and `public/scenes/summer-scene.png`
-  (PNG, not yet converted to WebP).
-- Multi-scene switcher done: Kerala + Summer both selectable via the bottom-right pill, crossfade
-  verified working in both directions (including instant switch-back with no reload flash).
+- Background images live at `public/scenes/kerala-scene.png`, `public/scenes/summer-scene.png`,
+  and `public/scenes/grind-scene.png` (PNG, not yet converted to WebP).
+- Multi-scene switcher done: Kerala, Summer, and The Grind all selectable via the bottom-right
+  pill, crossfade verified working across all three (including instant switch-back with no reload
+  flash). The Grind has no songs yet — placeholder track, same pattern Kerala/Summer started with.
 - Anti-goal "No multi-scene switcher UI" (see above) is now stale/superseded by this session's
   work — a future session should update it rather than treat it as still in force.
 - 2026-08-09 — Summer scene's 25 songs added (user's own files, from `~/Documents/Songs summer/`),
@@ -145,4 +147,13 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   rename` (URL is now `github.com/patelmoksh6875-creator/Elsewhere`, local `origin` remote updated
   to match) and updated the site's `<title>`/metadata, `package.json` name, README, and this file's
   heading. Local folder path (`kerala-radio/`) and internal scene id `kerala-backwaters` were left
-  alone — purely cosmetic/user-facing naming changed, nothing structural.
+  alone — purely cosmetic/user-facing naming changed, nothing structural. (Note: the user separately
+  renamed the local project folder itself to `Elsewhere/` shortly after — `.claude/launch.json`'s
+  dev-server config was updated to match, prefix `Elsewhere` instead of `kerala-radio`.)
+- 2026-08-10 — Added a third scene, "The Grind" (dev-team-working-late office illustration).
+  Followed the same pattern as Summer: local time (not fixed timezone), placeholder track
+  awaiting songs. New this time: a second title font, Archivo Black (`--font-title-blocky`,
+  `font-title-blocky` Tailwind class), used only for this scene — explicitly requested to be a
+  "more blocky" look distinct from Yatra One (used by Kerala and Summer). `Scene.titleFontClass`
+  already supported per-scene fonts from the original design, so this needed no type changes.
+  Verified in browser: crossfades in correctly, title renders in the new font, no console errors.
