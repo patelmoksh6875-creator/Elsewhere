@@ -125,10 +125,18 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   (PNG, not yet converted to WebP).
 - Multi-scene switcher done: Kerala + Summer both selectable via the bottom-right pill, crossfade
   verified working in both directions (including instant switch-back with no reload flash).
-  Summer scene has no songs yet — `tracks: []`-equivalent placeholder, same pattern Kerala started
-  with. User said they'll supply Summer's song files later, same as they did for Kerala.
 - Anti-goal "No multi-scene switcher UI" (see above) is now stale/superseded by this session's
   work — a future session should update it rather than treat it as still in force.
-- Pushed to GitHub (`main`) through the continuous-playback-fix commit; the multi-scene switcher
-  work in this session is queued to commit next. Not yet deployed to Vercel (user will deploy
-  themselves).
+- 2026-08-09 — Summer scene's 25 songs added (user's own files, from `~/Documents/Songs summer/`),
+  same pattern as Kerala: copied into `public/audio/`, filenames slugified, title/artist parsed
+  from filenames (no ID3 tags present). One exact duplicate file
+  (`Empire of the Sun - We Are The People (Lyrics) (1).mp3`, byte-identical to the non-`(1)`
+  version) was skipped rather than imported twice. A few tracks with ambiguous/no artist in the
+  filename (Paradise, The Weight Of Attraction, We're Getting Older, Coca White) are labeled
+  "Unknown Artist", same convention as Kerala's unknowns — correct in `scenes.ts` if known.
+  Verified in-browser: first track loads with correct duration, playback works, and skipping
+  through all 25 tracks in sequence lands correctly on the last one with continuous playback held
+  throughout (confirms the earlier continuous-flow fix generalizes across a full scene switch +
+  full playlist, not just the 2-3 tracks it was tested with originally).
+- Pushed to GitHub (`main`) through the multi-scene-switcher commit; Summer's song library is
+  queued to commit next. Not yet deployed to Vercel (user will deploy themselves).
