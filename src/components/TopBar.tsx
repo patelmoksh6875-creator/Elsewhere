@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function formatSceneTime(timezone: string) {
+function formatSceneTime(timezone: string | null) {
   const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
+    // Omitting timeZone entirely (rather than passing undefined explicitly
+    // in the object) falls back to the viewer's own local timezone.
+    ...(timezone ? { timeZone: timezone } : {}),
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
@@ -59,7 +61,13 @@ function usePresenceCount() {
   return count;
 }
 
-export function TopBar({ timezone }: { timezone: string }) {
+export function TopBar({
+  timezone,
+  timeLabel,
+}: {
+  timezone: string | null;
+  timeLabel: string;
+}) {
   const [time, setTime] = useState<string | null>(null);
   const presence = usePresenceCount();
 
@@ -90,7 +98,7 @@ export function TopBar({ timezone }: { timezone: string }) {
           className="mt-1.5 flex items-center gap-2 text-[11px] font-semibold tracking-widest text-white/70"
           style={textShadow}
         >
-          <span>Kerela Time</span>
+          <span>{timeLabel}</span>
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]" />

@@ -5,10 +5,12 @@ import type { Scene } from "@/types/scene";
 export const keralaScene: Scene = {
   id: "kerala-backwaters",
   name: "Kerala Backwaters",
+  label: "Kerala",
   backgroundImage: "/scenes/kerala-scene.png",
   titleText: "केरल के खेत",
   titleFontClass: "font-title",
   timezone: "Asia/Kolkata",
+  timeLabel: "Kerela Time",
   spotifyUrl: "https://open.spotify.com",
   ytMusicUrl: "https://music.youtube.com",
   tracks: [
@@ -85,4 +87,30 @@ export const keralaScene: Scene = {
   ],
 };
 
-export const scenes: Scene[] = [keralaScene];
+// Waiting on songs for this scene — user will supply an MP3 folder later,
+// same as the Kerala scene originally started with an empty placeholder.
+export const summerScene: Scene = {
+  id: "summer-coast",
+  name: "Summer Coast",
+  label: "Summer",
+  backgroundImage: "/scenes/summer-scene.png",
+  titleText: "Summer",
+  titleFontClass: "font-title",
+  timezone: null,
+  timeLabel: "Local Time",
+  spotifyUrl: "https://open.spotify.com",
+  ytMusicUrl: "https://music.youtube.com",
+  tracks: [
+    {
+      id: "placeholder",
+      title: "Add your first song",
+      artist: "Drop an MP3 in /public/audio",
+      albumArt: "/scenes/summer-scene.png",
+      file: "",
+    },
+  ],
+};
+
+// Add new presets here — the switcher UI and scene-transition logic are
+// both generic over this array, so a new entry is the only change needed.
+export const scenes: Scene[] = [keralaScene, summerScene];

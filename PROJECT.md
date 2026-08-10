@@ -1,14 +1,16 @@
 # Kerala Radio
 
 ## Done means
-A deployable Next.js site showing a Kerala ambient scene (background art, live Kerala-time clock,
-glassmorphic music player) that plays the user's own uploaded MP3s, structured so more scenes can
-be added later without a rewrite. Center title is in Hindi/Devanagari (`केरल`).
+A deployable Next.js multi-scene ambient site (Kerala + Summer, more addable as data entries) with
+a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-timezone clock
+crossfading in, and a glassmorphic music player that plays the user's own uploaded MP3s per scene.
 
 ## Anti-goals (v1)
-- No multi-scene switcher UI (data structure supports it, but only one scene ships)
 - No auth or user accounts
 - No perfected mobile layout (desktop-first; must not be broken on mobile, but not polished)
+- No more than 2 scenes shipped in this pass (Kerala, Summer) — the switcher and data model are
+  generic over N scenes, but additional presets (Startup, Nostalgic, etc.) are out of scope until
+  their art/songs are supplied
 
 ## Stack
 - **Next.js 16 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
@@ -83,6 +85,30 @@ be added later without a rewrite. Center title is in Hindi/Devanagari (`के�
   track whenever playback was in progress (tracked via an `isPlayingRef` mirror, read without
   making the effect depend on `isPlaying` itself) — so skip/prev/auto-advance-on-end all continue
   playing uninterrupted, and only an explicit pause click actually stops it.
+- 2026-08-09 — Evolved from a single-scene page into a multi-scene switcher, per a second handoff
+  doc (`SCENE_SWITCHER_HANDOFF.md`). Added a "Summer" scene (coastal-highway golden-hour art,
+  English title, viewer's local time instead of a fixed timezone — `Scene.timezone` is now
+  `string | null`, `null` meaning "use local"). Added `Scene.label` (short switcher-menu name,
+  distinct from the existing longer `name`) and `Scene.timeLabel` (small caption under the clock,
+  e.g. "Kerela Time" vs "Local Time" — kept the user's own "Kerela" spelling from their earlier
+  direct GitHub edit rather than "fixing" it). Deviated from the handoff doc in one place: it
+  described a Spotify iFrame API for music and called the presence counter "still decorative" —
+  both are stale relative to this project's actual state (local MP3s, real presence counter via
+  Upstash), so those parts of the doc were ignored in favor of what's already built.
+- 2026-08-09 — Scene switching implemented as: `SceneExperience` (new client component) holds
+  `activeId` state and renders every scene's background `<Image>` simultaneously, stacked, with
+  only the active one at `opacity-100` (rest at `opacity-0`) and a `transition-opacity
+  duration-700` — this crossfades instead of hard-cutting, and switching back to an
+  already-visited scene is instant with no reload flash since nothing unmounts. `TopBar` and
+  `SceneTitle` stay mounted across switches and just receive new props. `PlayerIsland` is
+  `key={activeScene.id}`'d, so switching scenes fully remounts it (old audio stops immediately,
+  new scene's tracks start fresh at track 1) rather than trying to patch a live player's track
+  list mid-state — simpler and more robust than the alternative, and indistinguishable from
+  "persistent" to the user since it occupies the same DOM position with no visible flash.
+- 2026-08-09 — New `SceneSwitcher` component: bottom-right glass pill (`bottom-8 right-6`, clear
+  of the player island), expands into a scene list on click with a 300ms `ease-out` transition,
+  closes on selecting a scene or clicking outside. Generic over the `scenes` array — a new preset
+  is a `scenes.ts` data entry, no UI code changes needed.
 
 ## Current state
 - Phases 1–5 done, phase 4 (your music) done: scaffolded Next.js app, built the Kerala scene
@@ -95,6 +121,14 @@ be added later without a rewrite. Center title is in Hindi/Devanagari (`के�
   across visitors in production (see README). Without it, every deploy still shows "1" safely.
 - Some tracks are missing real artist credit (see decisions log) and none have dedicated album
   art yet — cosmetic gaps only, playback works for all 10.
-- Background image lives at `public/scenes/kerala-scene.png` (PNG, not yet converted to WebP).
-- Pushed to GitHub (`main`) through the title-wording commit; the song-library + vinyl-spin work
-  in this session is queued to commit next. Not yet deployed to Vercel (user will deploy themselves).
+- Background images live at `public/scenes/kerala-scene.png` and `public/scenes/summer-scene.png`
+  (PNG, not yet converted to WebP).
+- Multi-scene switcher done: Kerala + Summer both selectable via the bottom-right pill, crossfade
+  verified working in both directions (including instant switch-back with no reload flash).
+  Summer scene has no songs yet — `tracks: []`-equivalent placeholder, same pattern Kerala started
+  with. User said they'll supply Summer's song files later, same as they did for Kerala.
+- Anti-goal "No multi-scene switcher UI" (see above) is now stale/superseded by this session's
+  work — a future session should update it rather than treat it as still in force.
+- Pushed to GitHub (`main`) through the continuous-playback-fix commit; the multi-scene switcher
+  work in this session is queued to commit next. Not yet deployed to Vercel (user will deploy
+  themselves).
