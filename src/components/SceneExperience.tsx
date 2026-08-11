@@ -37,7 +37,11 @@ export function SceneExperience({ scenes }: { scenes: Scene[] }) {
       {/* Persistent chrome: same component instances across every scene
           switch, only their content props change. */}
       <TopBar timezone={activeScene.timezone} timeLabel={activeScene.timeLabel} />
-      <SceneTitle text={activeScene.titleText} fontClass={activeScene.titleFontClass} />
+      <SceneTitle
+        text={activeScene.titleText}
+        fontClass={activeScene.titleFontClass}
+        subtitle={activeScene.subtitleText}
+      />
       {/* Keyed by scene id so the player fully resets to track 1 of the new
           scene's playlist on switch — old track stops, new one is ready to
           play, rather than trying to splice a new tracks array into

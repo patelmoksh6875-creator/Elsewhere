@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Yatra_One, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Yatra_One, Space_Grotesk, EB_Garamond } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,6 +24,15 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "700"],
 });
 
+// Elegant serif for the vintage-travel-poster scenes (Greece, Monaco, Grand
+// Tetons) — includes the Greek subset for the Greece scene's title, and
+// reads as more "old-world luxury" than Yatra One (used by Kerala/Summer).
+const ebGaramond = EB_Garamond({
+  variable: "--font-title-elegant",
+  subsets: ["latin", "greek"],
+  weight: ["600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Elsewhere",
   description: "An ambient multi-scene radio — Kerala backwaters, summer coast, and more.",
@@ -33,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${titleFont.variable} ${spaceGrotesk.variable} ${ebGaramond.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -1,16 +1,18 @@
 # Elsewhere
 
 ## Done means
-A deployable Next.js multi-scene ambient site (Kerala, Summer — more addable as data entries) with
-a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-timezone clock
-crossfading in, and a glassmorphic music player that plays the user's own uploaded MP3s per scene.
+A deployable Next.js multi-scene ambient site (Kerala, Summer, Monaco — more addable as data
+entries) with a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-
+timezone clock crossfading in, and a glassmorphic music player that plays the user's own uploaded
+MP3s per scene.
 
 ## Anti-goals (v1)
 - No auth or user accounts
 - No perfected mobile layout (desktop-first; must not be broken on mobile, but not polished)
-- Additional presets beyond what's already shipped (Kerala, Summer) are out of scope until their
-  art/songs are supplied — the switcher and data model are generic over N scenes, so adding one is
-  a `scenes.ts` entry away, just not scaffolded speculatively
+- Additional presets beyond what's already shipped (Kerala, Summer, Monaco) are out of scope until
+  their art/songs are supplied — the switcher and data model are generic over N scenes, so adding
+  one is a `scenes.ts` entry away, just not scaffolded speculatively. Greece and Grand Tetons are
+  planned next, waiting on their background image files (see decisions log).
 
 ## Stack
 - **Next.js 16 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
@@ -109,6 +111,25 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   of the player island), expands into a scene list on click with a 300ms `ease-out` transition,
   closes on selecting a scene or clicking outside. Generic over the `scenes` array — a new preset
   is a `scenes.ts` data entry, no UI code changes needed.
+- 2026-08-11 — Added `Scene.subtitleText` (optional small caption under the main title) and
+  updated `SceneTitle` to render it — needed for Monaco's "(Old money version)" line under the
+  title. Added a second title font, EB Garamond (`--font-title-elegant`), for a "vintage travel
+  poster" look distinct from Kerala/Summer's Yatra One; chosen specifically because it has a Greek
+  subset (a first attempt with Playfair Display failed typecheck — Next's font types don't offer
+  a Greek subset for it) for the still-pending Greece scene.
+- 2026-08-11 — User provided three new scene images pasted inline in chat (Greece/Santorini,
+  Monaco, Grand Tetons) and asked to swap Summer's art for the Greece one, plus add Monaco and
+  Grand Tetons as new scenes. Only one of the three actually existed as a file in `~/Downloads`
+  afterward — inline-pasted chat images aren't accessible as files unless separately saved.
+  **Mistake made and corrected in this session**: assumed by recency/timestamp alone that the one
+  file present was the Greece image and wired it in as such; it was actually the Monaco image.
+  Caught during browser verification (background didn't match the Greek title), root-caused by
+  actually reading the file's pixels instead of trusting the filename/timestamp, then fixed:
+  restored Summer's original art from its still-present Downloads source, and correctly added
+  Monaco using the real Monaco file. Lesson for future sessions: verify an image file's actual
+  content (Read/view it) before wiring it in when there's more than one candidate or the source
+  is ambiguous — don't rely on modification time alone. Greece and Grand Tetons are still pending
+  real files.
 
 ## Current state
 - Phases 1–5 done, phase 4 (your music) done: scaffolded Next.js app, built the Kerala scene
@@ -163,3 +184,11 @@ crossfading in, and a glassmorphic music player that plays the user's own upload
   nothing else referenced it. Back to two scenes: Kerala, Summer. If a blocky-font third scene
   comes back later, Archivo Black is a known-good choice — just re-add it rather than searching
   for a font again.
+- 2026-08-11 — Added Monaco as a third scene (see decisions log above for the Greece mix-up this
+  came bundled with). Harbor-view background, "Monaco" title with "(Old money version)" subtitle,
+  both in the new EB Garamond elegant serif. Local time, placeholder track awaiting songs. Verified
+  in browser: correct art, both title lines render in the new font, no console errors.
+- Currently three scenes: Kerala (10 songs), Summer (25 songs), Monaco (no songs yet). Greece
+  (Santorini art, Greek-script title "Καλοκαίρια στην Ελλάδα") and Grand Tetons are planned but
+  blocked on their background image files actually landing in `~/Downloads` — see decisions log
+  for the mix-up and what to do once those files exist.

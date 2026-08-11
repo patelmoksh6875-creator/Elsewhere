@@ -277,6 +277,38 @@ export const summerScene: Scene = {
   ],
 };
 
+export const monacoScene: Scene = {
+  id: "monaco",
+  name: "Monaco",
+  label: "Monaco",
+  backgroundImage: "/scenes/monaco-scene.png",
+  titleText: "Monaco",
+  titleFontClass: "font-title-elegant",
+  subtitleText: "(Old money version)",
+  timezone: null,
+  timeLabel: "Local Time",
+  spotifyUrl: "https://open.spotify.com",
+  ytMusicUrl: "https://music.youtube.com",
+  tracks: [
+    {
+      id: "placeholder",
+      title: "Add your first song",
+      artist: "Drop an MP3 in /public/audio",
+      albumArt: "/scenes/monaco-scene.png",
+      file: "",
+    },
+  ],
+};
+
+// Greece and Grand Tetons are pending — their background images haven't
+// been supplied as files yet as their own files (only pasted inline in
+// chat, and one mix-up along the way where Monaco's art was briefly
+// mislabeled "greece-scene.png" before being caught and fixed). Add them
+// the same way as Monaco above once public/scenes/greece-scene.png and
+// grand-tetons-scene.png exist. Greece's title goes in Greek script
+// ("Καλοκαίρια στην Ελλάδα" — "Summers in Greece") using font-title-elegant,
+// the same font family as Monaco (it has a Greek subset).
+
 // Add new presets here — the switcher UI and scene-transition logic are
 // both generic over this array, so a new entry is the only change needed.
-export const scenes: Scene[] = [keralaScene, summerScene];
+export const scenes: Scene[] = [keralaScene, summerScene, monacoScene];
