@@ -1,18 +1,17 @@
 # Elsewhere
 
 ## Done means
-A deployable Next.js multi-scene ambient site (Kerala, Summer, Monaco — more addable as data
-entries) with a bottom-right preset switcher, each scene's background/title/local-time-or-fixed-
-timezone clock crossfading in, and a glassmorphic music player that plays the user's own uploaded
-MP3s per scene.
+A deployable Next.js multi-scene ambient site (Kerala, Greece, Monaco, Grand Tetons — more
+addable as data entries) with a bottom-right preset switcher, each scene's background/title/
+local-time-or-fixed-timezone clock crossfading in, and a glassmorphic music player that plays the
+user's own uploaded MP3s per scene.
 
 ## Anti-goals (v1)
 - No auth or user accounts
 - No perfected mobile layout (desktop-first; must not be broken on mobile, but not polished)
-- Additional presets beyond what's already shipped (Kerala, Summer, Monaco) are out of scope until
-  their art/songs are supplied — the switcher and data model are generic over N scenes, so adding
-  one is a `scenes.ts` entry away, just not scaffolded speculatively. Greece and Grand Tetons are
-  planned next, waiting on their background image files (see decisions log).
+- Additional presets beyond what's already shipped (Kerala, Greece, Monaco, Grand Tetons) are out
+  of scope until their art/songs are supplied — the switcher and data model are generic over N
+  scenes, so adding one is a `scenes.ts` entry away, just not scaffolded speculatively.
 
 ## Stack
 - **Next.js 16 (App Router) + TypeScript** — file-based routing, easy Vercel deploy, room to grow to multi-scene later
@@ -188,7 +187,22 @@ MP3s per scene.
   came bundled with). Harbor-view background, "Monaco" title with "(Old money version)" subtitle,
   both in the new EB Garamond elegant serif. Local time, placeholder track awaiting songs. Verified
   in browser: correct art, both title lines render in the new font, no console errors.
-- Currently three scenes: Kerala (10 songs), Summer (25 songs), Monaco (no songs yet). Greece
-  (Santorini art, Greek-script title "Καλοκαίρια στην Ελλάδα") and Grand Tetons are planned but
-  blocked on their background image files actually landing in `~/Downloads` — see decisions log
-  for the mix-up and what to do once those files exist.
+- 2026-08-11 — Summer's slot finally became Greece (the swap originally requested days earlier).
+  Getting the real Santorini and Grand Tetons files took several tries — inline-pasted chat images
+  kept not showing up as actual files in `~/Downloads` across multiple asks; they turned out to
+  already be there from an earlier turn (`ChatGPT Image Aug 11, 2026, 05_00_52 PM.png` and
+  `...05_01_04 PM.png`), just not spotted because the search only looked at the most recent
+  files/timestamps at each check rather than opening and looking at every recent candidate. Fixed
+  by reading each candidate file's actual pixels before use (not just filename/recency) — same
+  lesson as the earlier Monaco mix-up, reinforced. Title changed from the originally-planned Greek
+  script to English ("Summers in Greece") per explicit user correction. Same EB Garamond font as
+  Monaco (chosen for its Greek subset, now not strictly needed since the title is English, but
+  kept for visual consistency across the "vintage travel poster" scene family). Scene id renamed
+  `summer-coast` → `greece-santorini`; `summer-scene.png` deleted (replaced by `greece-scene.png`,
+  its 25-track playlist carried over unchanged).
+- 2026-08-11 — Added Grand Tetons as a fourth scene: cabin-in-the-Wyoming-plains background,
+  "Grand Tetons" title in EB Garamond, local time, placeholder track awaiting songs — same pattern
+  as Monaco.
+- Currently four scenes: Kerala (10 songs), Greece (25 songs, inherited from the old Summer slot),
+  Monaco (no songs yet), Grand Tetons (no songs yet). All four verified working in browser:
+  correct art per scene, correct titles/fonts, no console errors, switcher lists all four.
