@@ -203,6 +203,15 @@ user's own uploaded MP3s per scene.
 - 2026-08-11 — Added Grand Tetons as a fourth scene: cabin-in-the-Wyoming-plains background,
   "Grand Tetons" title in EB Garamond, local time, placeholder track awaiting songs — same pattern
   as Monaco.
+- 2026-08-11 — Monaco's 14 songs added (user's own files, from `~/Documents/monaco/`), same
+  pattern as Kerala/Greece: copied into `public/audio/`, filenames slugified, title/artist parsed
+  from filenames (no ID3 tags present). Placeholder track replaced with the real list. A few
+  tracks with no clear artist in the filename (Serenade, Missing (Todd Terry Club Mix)) are
+  labeled "Unknown Artist"; "Playground Love" only credits "Gordon Tracks" in the filename with no
+  primary artist stated, so `artist` is set to "feat. Gordon Tracks" rather than guessing the main
+  artist. Verified in browser: correct duration on first track ("Monaco" by Bad Bunny, fittingly),
+  playback works, and cycling through all 14 tracks via skip lands correctly on the last one
+  ("La Mentira") with playback held continuous throughout — no console errors.
 - Currently four scenes: Kerala (10 songs), Greece (25 songs, inherited from the old Summer slot),
-  Monaco (no songs yet), Grand Tetons (no songs yet). All four verified working in browser:
-  correct art per scene, correct titles/fonts, no console errors, switcher lists all four.
+  Monaco (14 songs), Grand Tetons (no songs yet). All four verified working in browser: correct
+  art per scene, correct titles/fonts, no console errors, switcher lists all four.
