@@ -212,6 +212,22 @@ user's own uploaded MP3s per scene.
   artist. Verified in browser: correct duration on first track ("Monaco" by Bad Bunny, fittingly),
   playback works, and cycling through all 14 tracks via skip lands correctly on the last one
   ("La Mentira") with playback held continuous throughout — no console errors.
-- Currently four scenes: Kerala (10 songs), Greece (25 songs, inherited from the old Summer slot),
-  Monaco (14 songs), Grand Tetons (no songs yet). All four verified working in browser: correct
-  art per scene, correct titles/fonts, no console errors, switcher lists all four.
+- 2026-08-11 — Grand Tetons' 14 songs added (user's own files, from `~/Documents/grand tetons/`),
+  same pattern as the other three scenes: copied into `public/audio/`, filenames slugified, title/
+  artist parsed from filenames (no ID3 tags present). Placeholder track replaced with the real
+  list. A few tracks (Magic, Dreams (2004 Remaster), Mount Bayou) have no artist stated in the
+  filename and are labeled "Unknown Artist" — notably "Dreams (2004 Remaster)" is very likely
+  Fleetwood Mac, but the filename doesn't say so and it wasn't guessed, per the established
+  convention of not inferring artist credit. Verified in browser: correct duration on first track
+  ("Evergreen"), playback works, and cycling through all 14 tracks via skip lands correctly on the
+  last one ("Lady Brown") with playback held continuous throughout — no console errors.
+- User asked about making scene folders "live" (drop a song in, it appears on the site with no
+  code edits) — question was interrupted/dismissed before a direction was chosen. Two real options
+  discussed: (a) build-time directory scan of `public/audio/<scene>/`, still needs a git push to
+  go live but no manual `scenes.ts` editing, or (b) a real cloud storage backend (e.g. Vercel Blob,
+  same shape as the presence counter's Redis) for true no-deploy live updates. Revisit this if
+  asked again — don't assume which direction without asking, since the trade-offs (a push step vs.
+  new infrastructure) are a real product decision, not a default either of us should silently pick.
+- Currently four scenes, all fully populated: Kerala (10 songs), Greece (25 songs, inherited from
+  the old Summer slot), Monaco (14 songs), Grand Tetons (14 songs). All four verified working in
+  browser: correct art per scene, correct titles/fonts, no console errors, switcher lists all four.
