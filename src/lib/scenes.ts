@@ -94,8 +94,8 @@ export const greeceScene: Scene = {
   backgroundImage: "/scenes/greece-scene.png",
   titleText: "Summers in Greece",
   titleFontClass: "font-title-elegant",
-  timezone: null,
-  timeLabel: "Local Time",
+  timezone: "Europe/Athens",
+  timeLabel: "Greece Time",
   spotifyUrl: "https://open.spotify.com",
   ytMusicUrl: "https://music.youtube.com",
   tracks: [
@@ -285,8 +285,8 @@ export const monacoScene: Scene = {
   titleText: "Monaco",
   titleFontClass: "font-title-elegant",
   subtitleText: "(Old money version)",
-  timezone: null,
-  timeLabel: "Local Time",
+  timezone: "Europe/Monaco",
+  timeLabel: "Monaco Time",
   spotifyUrl: "https://open.spotify.com",
   ytMusicUrl: "https://music.youtube.com",
   tracks: [
@@ -405,8 +405,8 @@ export const grandTetonsScene: Scene = {
   backgroundImage: "/scenes/grand-tetons-scene.png",
   titleText: "Grand Tetons",
   titleFontClass: "font-title-elegant",
-  timezone: null,
-  timeLabel: "Local Time",
+  timezone: "America/Denver",
+  timeLabel: "Grand Tetons Time",
   spotifyUrl: "https://open.spotify.com",
   ytMusicUrl: "https://music.youtube.com",
   tracks: [

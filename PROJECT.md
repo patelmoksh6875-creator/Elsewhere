@@ -233,6 +233,14 @@ user's own uploaded MP3s per scene.
   reordering. Confirmed it was genuinely new by diffing the folder's filenames against what was
   already wired into `scenes.ts` before copying anything. Verified in browser: appears as the 15th
   track, correct duration (3:48), no console errors.
-- Currently four scenes, all fully populated: Kerala (10 songs), Greece (25 songs, inherited from
-  the old Summer slot), Monaco (15 songs), Grand Tetons (14 songs). All four verified working in
-  browser: correct art per scene, correct titles/fonts, no console errors, switcher lists all four.
+- 2026-08-11 — Greece, Monaco, and Grand Tetons switched from viewer's-local-time (`timezone:
+  null`) to each scene's real-world fixed timezone, matching how Kerala already worked: Greece →
+  `Europe/Athens`, Monaco → `Europe/Monaco`, Grand Tetons → `America/Denver` (Wyoming is Mountain
+  Time; there's no `America/Grand_Teton` IANA zone, Denver is the correct canonical zone for it).
+  `timeLabel` updated to match each ("Greece Time", "Monaco Time", "Grand Tetons Time"). Verified
+  in browser: all three show plausible, mutually-consistent real times (e.g. Monaco one hour
+  behind Greece, matching real-world CEST vs. EEST), no console errors.
+- Currently four scenes, all fully populated with real fixed-timezone clocks: Kerala (10 songs),
+  Greece (25 songs, inherited from the old Summer slot), Monaco (15 songs), Grand Tetons (14
+  songs). All four verified working in browser: correct art per scene, correct titles/fonts, no
+  console errors, switcher lists all four.
