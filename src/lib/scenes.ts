@@ -388,6 +388,13 @@ export const monacoScene: Scene = {
       albumArt: "/scenes/monaco-scene.png",
       file: "/audio/la-mentira.mp3",
     },
+    {
+      id: "beneath-the-velvet-sky",
+      title: "Beneath the Velvet Sky",
+      artist: "Unknown Artist",
+      albumArt: "/scenes/monaco-scene.png",
+      file: "/audio/beneath-the-velvet-sky.mp3",
+    },
   ],
 };
 

@@ -228,6 +228,11 @@ user's own uploaded MP3s per scene.
   same shape as the presence counter's Redis) for true no-deploy live updates. Revisit this if
   asked again — don't assume which direction without asking, since the trade-offs (a push step vs.
   new infrastructure) are a real product decision, not a default either of us should silently pick.
+- 2026-08-11 — Added one more song to Monaco ("Beneath the Velvet Sky", artist not stated in the
+  filename → "Unknown Artist"), appended to the end of the existing 14-track list rather than
+  reordering. Confirmed it was genuinely new by diffing the folder's filenames against what was
+  already wired into `scenes.ts` before copying anything. Verified in browser: appears as the 15th
+  track, correct duration (3:48), no console errors.
 - Currently four scenes, all fully populated: Kerala (10 songs), Greece (25 songs, inherited from
-  the old Summer slot), Monaco (14 songs), Grand Tetons (14 songs). All four verified working in
+  the old Summer slot), Monaco (15 songs), Grand Tetons (14 songs). All four verified working in
   browser: correct art per scene, correct titles/fonts, no console errors, switcher lists all four.
